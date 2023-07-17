@@ -13,7 +13,7 @@ router.post('/', jsonParser, (req, res, next) => {
               res.json({ status: 'error', message: err });
               return;
           }
-          res.json({status: 'ok'})
+          res.json({status: 'success'})
       }
   );
 });

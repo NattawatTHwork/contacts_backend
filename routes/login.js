@@ -23,7 +23,7 @@ router.post('/', jsonParser, (req, res, next) => {
             bcrypt.compare(req.body.password, users[0].password, function (err, isLogin) {
                 if (isLogin) {
                     var token = jwt.sign({ email: users[0].email }, secret, { expiresIn: '1h' });
-                    res.json({ status: 'ok', message: 'login success', token });
+                    res.json({ status: 'success', message: 'login success', token });
                 } else {
                     res.json({ status: 'error', message: 'login failed' });
                 }
