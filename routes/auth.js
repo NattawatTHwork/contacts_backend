@@ -18,7 +18,7 @@ router.post('/', jsonParser, (req, res, next) => {
         res.json({ status: 'error', message: err.message });
         return;
       }
-      res.json({ status: 'ok', decoded });
+      res.json({ status: 'success', decoded });
     });
   } catch (err) {
     res.json({ status: 'error', message: err.message });
