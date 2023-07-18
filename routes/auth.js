@@ -9,8 +9,17 @@ const jsonParser = bodyParser.json();
 router.post('/', jsonParser, (req, res, next) => {
   try {
     const token = req.headers.authorization.split(' ')[1];
-    const decoded = jwt.verify(token, secret);
-    res.json({ status: 'success', decoded });
+    if (!token) {
+      res.json({ status: 'error', message: 'Unauthorized' });
+      return;
+    }
+    jwt.verify(token, secret, (err, decoded) => {
+      if (err) {
+        res.json({ status: 'error', message: err.message });
+        return;
+      }
+      res.json({ status: 'ok', decoded });
+    });
   } catch (err) {
     res.json({ status: 'error', message: err.message });
   }
