@@ -2,10 +2,11 @@ const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
-const secret = 'Fullstack-Login-2021';
+require('dotenv').config()
+const secret = process.env.SECRET_KEY;
 const jsonParser = bodyParser.json();
 
-router.post('/auth', jsonParser, (req, res, next) => {
+router.post('/', jsonParser, (req, res, next) => {
   try {
     const token = req.headers.authorization.split(' ')[1];
     const decoded = jwt.verify(token, secret);

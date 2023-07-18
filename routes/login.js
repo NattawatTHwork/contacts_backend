@@ -5,7 +5,8 @@ var jsonParser = bodyParser.json();
 const bcrypt = require('bcrypt');
 var connection = require('../database');
 var jwt = require('jsonwebtoken');
-const secret = 'Fullstack-Login-2021';
+require('dotenv').config()
+const secret = process.env.SECRET_KEY;
 
 router.post('/', jsonParser, (req, res, next) => {
     connection.execute(
