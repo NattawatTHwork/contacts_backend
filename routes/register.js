@@ -8,8 +8,6 @@ var connection = require('../database');
 
 router.post('/', jsonParser, (req, res, next) => {
     const email = req.body.email;
-
-    // Check if the email already exists in the database
     connection.execute(
         'SELECT * FROM admin WHERE email = ?',
         [email],
@@ -24,7 +22,6 @@ router.post('/', jsonParser, (req, res, next) => {
                 return;
             }
 
-            // If the email is not found, hash the password and insert the new admin
             bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
                 connection.execute(
                     'INSERT INTO admin (email, password, fname, lname) VALUES (?, ?, ?, ?)',
@@ -34,7 +31,7 @@ router.post('/', jsonParser, (req, res, next) => {
                             res.json({ status: 'error', message: err });
                             return;
                         }
-                        res.json({ status: 'success' });
+                        res.json({ status: 'success', message: 'Register Success' });
                     }
                 );
             });

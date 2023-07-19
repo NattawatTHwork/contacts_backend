@@ -3,8 +3,9 @@ var router = express.Router();
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 var connection = require('../database');
+const checkUserAuthorization = require('./checkUserAuthorization');
 
-router.delete('/:id', jsonParser, (req, res, next) => {
+router.delete('/:id', jsonParser, checkUserAuthorization, (req, res, next) => {
   connection.execute(
     'DELETE FROM users WHERE user_id = ?',
     [req.params.id],
